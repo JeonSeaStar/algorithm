@@ -4,36 +4,34 @@ using namespace std;
 
 int main()
 {
-	int n[8];
+	int d[8] = { 1,2,3,4,5,6,7,8 };
 
 	for (int i = 0; i < 8; i++)
 	{
-		cin >> n[i];
+		cin >> d[i];
 	}
 
-	if (n[0] == 1)
+	int asc = 0;
+	int	des = 0;
+	int	mixed = 0;
+	for (int i = 0; i < 8; i++)
 	{
-		for (int j = 0; j < 8; j++)
+		int n = d[i] + (i + 1);
+		if (n == (i + 1) * 2)
 		{
-			if (n[j] != j + 1)
-			{
-				cout << "mixed";
-				break;
-			}
-			else if(j == 7){ cout << "ascending"; }
+			asc++;
+		}
+		else if (n == 9)
+		{
+			des++;
+		}
+		else
+		{
+			mixed++;
 		}
 	}
-	else if (n[0] == 8)
-	{
-		for (int j = 7; j >= 0; j--)
-		{
-			if (n[j] != j + 1)
-			{
-				cout << "mixed";
-				break;
-			}
-			else if (j == 0) { cout << "descending"; }
-		}
-	}
+
+	if (asc == 8) { cout << "ascending"; }
+	else if (des == 8) { cout << "descending"; }
 	else { cout << "mixed"; }
 }
