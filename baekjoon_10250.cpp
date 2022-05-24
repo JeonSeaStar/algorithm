@@ -1,25 +1,21 @@
 #include <iostream>
 using namespace std;
 
-int calculate(int** a, int b)
-{
-    for(int i = 0; i > )
-}
-
 int main()
 {
-    int n;
-    cin >> n;
-    for (int i = 0; i < n; i++)
+    int T;
+    cin >> T;
+    int H, W, N;
+    for (int i = 0; i < T; i++)
     {
-        int w, h, m;
-        cin >> w >> h >> m;
-        int** r = new int* [h];
-        for (int j = 0; j < h; j++)
-            r[j] = new int[w];
+        cin >> H >> W >> N;
 
-        
+        int a = N % H;
+        int b = N / H;
+
+        if (a > 0) { b++; }
+        else { a = H; }
+
+        cout << a * 100 + b << endl;
     }
-    
-    return 0;
 }
