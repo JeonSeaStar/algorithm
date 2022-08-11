@@ -1,31 +1,31 @@
 #include <iostream>
-#include <string.h>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 int B[25][25];
 bool V[25][25];
-int N, C;
+int N, C, H;
+vector<int> q;
 
-void Neighbor(int x, int y)
+int Dx[4] = { 1, -1, 0, 0 };
+int Dy[4] = { 0, 0, 1, -1 };
+
+void DFS(int x, int y)
 {
 	V[x][y] = true;
-	C++;
+	H++;
 
-	if (B[x][y - 1] == 1 && V[x][y - 1] == false && y != 0)
+	for (int i = 0; i < 4; i++)
 	{
-		Neighbor(x, y - 1);
-	}
-	if (B[x - 1][y] == 1 && V[x - 1][y] == false && x != 0)
-	{
-		Neighbor(x - 1, y);
-	}
-	if (B[x][y + 1] == 1 && V[x][y + 1] == false && y != 24)
-	{
-		Neighbor(x, y + 1);
-	}
-	if (B[x + 1][y] == 1 && V[x + 1][y] == false && x != 24)
-	{
-		Neighbor(x + 1, y);
+		int nx = x + Dx[i];
+		int ny = y + Dy[i];
+
+		if (nx < 0 || ny < 0 || nx >= N || ny >= N)
+			continue;
+
+		if (B[nx][ny] == 1 && V[nx][ny] == false)
+			DFS(nx, ny);
 	}
 }
 
@@ -36,15 +36,15 @@ int main()
 	cout.tie(NULL);
 
 	cin >> N;
-
+	C = 0;
 	for (int i = 0; i < N; i++)
 	{
-		string x;
-		cin >> x;
+		string s;
+		cin >> s;
 
 		for (int j = 0; j < N; j++)
 		{
-			V[i][j] = x[j]; //¿©±îÁö
+			B[i][j] = s[j] - '0';
 		}
 	}
 
@@ -54,10 +54,16 @@ int main()
 		{
 			if (B[m][n] == 1 && V[m][n] == false)
 			{
-				Neighbor(m, n);
-				cout << C << "\n";
-				C = 0;
+				C++;
+				H = 0;
+				DFS(m, n);
+				q.push_back(H);
 			}
 		}
 	}
+
+	cout << q.size() << "\n";
+	sort(q.begin(), q.end());
+	for(int i = 0; i < q.size(); i++)
+		cout << q[i] << "\n";
 }
